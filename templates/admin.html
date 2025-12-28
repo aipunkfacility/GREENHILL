@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Green Hill Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0d1117;
+            --bg-panel: #161b22;
+            --text-main: #c9d1d9;
+            --text-accent: #58a6ff;
+            --green-btn: #238636;
+            --border: #30363d;
+            --hover: #21262d;
+        }
+        body { margin: 0; font-family: 'JetBrains Mono', monospace; background-color: var(--bg-dark); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; }
+        
+        .sidebar { width: 250px; background-color: var(--bg-panel); border-right: 1px solid var(--border); padding: 20px; display: flex; flex-direction: column; }
+        .logo { font-size: 18px; font-weight: bold; margin-bottom: 30px; color: #fff; display: flex; align-items: center; gap: 10px; }
+        .logo span { color: #2ea043; }
+        
+        .menu-item { padding: 10px 15px; margin-bottom: 5px; cursor: pointer; border-radius: 6px; color: var(--text-main); display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+        .menu-item:hover { background-color: var(--hover); }
+        .menu-item.active { background-color: var(--hover); color: var(--text-accent); border-left: 3px solid var(--text-accent); }
+        .icon { width: 16px; text-align: center; }
+
+        .main-content { flex: 1; padding: 40px; overflow-y: auto; }
+        .page { display: none; }
+        .page.active { display: block; animation: fadeIn 0.3s; }
+        h2 { border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; color: #fff; }
+
+        .input-group { margin-bottom: 20px; background: var(--bg-panel); padding: 15px; border-radius: 8px; border: 1px solid var(--border); }
+        .input-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+        label { font-size: 14px; color: #8b949e; }
+        
+        input { background: #0d1117; border: 1px solid var(--border); color: #fff; padding: 8px 12px; border-radius: 6px; font-family: inherit; width: 150px; text-align: right; }
+        input:focus { outline: 1px solid var(--text-accent); border-color: var(--text-accent); }
+
+        .btn { background-color: var(--green-btn); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-family: inherit; font-weight: bold; margin-top: 10px; }
+        .btn:hover { background-color: #2ea043; }
+        .btn-del { background: none; border: none; color: #f85149; cursor: pointer; text-decoration: none; margin-left: 10px; }
+        
+        .admin-list li { display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid var(--border); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="logo">🟢 <span>Green Hill</span></div>
+        <div class="menu-item active" onclick="showPage('rates', this)"><span class="icon">💱</span> Курсы валют</div>
+        <div class="menu-item" onclick="showPage('admins', this)"><span class="icon">👥</span> Администраторы</div>
+        <div class="menu-item" onclick="showPage('settings', this)"><span class="icon">⚙️</span> Project Files</div>
+    </div>
+
+    <div class="main-content">
+        
+        <div id="rates" class="page active">
+            <h2>Exchange Rates Config</h2>
+            <form action="/save_rates" method="post">
+                <div class="input-group">
+                    <div class="input-row">
+                        <label>🇷🇺 10.000 RUB ➔ VND</label>
+                        <input type="text" name="rub" class="currency-input" value="{{ rates.rub_rate }}" required>
+                    </div>
+                    <small style="color:#58a6ff">Клиент получит эту сумму за 10к рублей</small>
+                </div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <label>💎 100 USDT ➔ VND</label>
+                        <input type="text" name="usdt" class="currency-input" value="{{ rates.usdt_rate }}" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <div class="input-row">
+                        <label>💵 100 USD ➔ VND</label>
+                        <input type="text" name="usd" class="currency-input" value="{{ rates.usd_rate }}" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn">💾 Save Changes</button>
+            </form>
+        </div>
+
+        <div id="admins" class="page">
+            <h2>Access Control</h2>
+            <div class="input-group">
+                <form action="/add_admin" method="post" style="display:flex; gap:10px;">
+                    <input type="number" name="admin_id" placeholder="Telegram ID" style="flex:1; text-align:left;" required>
+                    <button type="submit" class="btn" style="margin-top:0;">+ Add</button>
+                </form>
+            </div>
+            <ul class="admin-list" style="padding:0; list-style:none;">
+                {% for admin in admins %}
+                <li>
+                    <span>🆔 <span style="color:#79c0ff">{{ admin }}</span></span>
+                    <a href="/delete_admin/{{ admin }}" class="btn-del">✕</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div id="settings" class="page">
+            <h2>Project Files</h2>
+            <p style="color:#8b949e">System status: <span style="color:#2ea043">● Online</span></p>
+            <div class="input-group">
+                <code>admins.json</code> <br> <code>rates.json</code> <br> <code>config.py</code>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function formatNumber(n) {
+            return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+        const currencyInputs = document.querySelectorAll('.currency-input');
+        currencyInputs.forEach(input => {
+            input.value = formatNumber(input.value);
+            input.addEventListener('input', function (e) {
+                let cursorPosition = this.selectionStart;
+                let originalLength = this.value.length;
+                this.value = formatNumber(this.value);
+                let newLength = this.value.length;
+                cursorPosition = cursorPosition + (newLength - originalLength);
+                this.setSelectionRange(cursorPosition, cursorPosition);
+            });
+        });
+        function showPage(pageId, element) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
