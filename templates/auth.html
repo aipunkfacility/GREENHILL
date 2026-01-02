@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8"/>
+  <title>Admin Auth Settings</title>
+  <style>
+    body { font-family: system-ui, Arial; background:#0d1117; color:#c9d1d9; padding:30px; }
+    .box { max-width:520px; background:#161b22; border:1px solid #30363d; padding:20px; border-radius:10px; }
+    input { width:100%; padding:10px; margin:8px 0 14px; background:#0d1117; color:#fff; border:1px solid #30363d; border-radius:8px; }
+    button { background:#238636; border:none; padding:10px 14px; border-radius:8px; color:#fff; font-weight:700; cursor:pointer; }
+    .err { color:#f85149; margin-bottom:12px; }
+    a { color:#58a6ff; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Смена логина/пароля</h2>
+    {% if error %}<div class="err">{{ error }}</div>{% endif %}
+    <form method="post" action="/auth">
+      <label>Новый логин</label>
+      <input name="new_user" required>
+
+      <label>Новый пароль</label>
+      <input name="new_pass" type="password" required>
+
+      <label>Повтори пароль</label>
+      <input name="new_pass2" type="password" required>
+
+      <button type="submit">Сохранить</button>
+    </form>
+
+    <p style="margin-top:16px;"><a href="/">← обратно в админку</a></p>
+  </div>
+</body>
+</html>

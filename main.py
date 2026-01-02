@@ -7,7 +7,7 @@ from aiogram.enums import ParseMode
 
 import config
 # Импортируем наши модули из папки handlers
-from handlers import admin, menu, calculator
+from handlers import menu, calculator
 
 async def main():
     # Инициализация бота с HTML-разметкой
@@ -24,7 +24,6 @@ async def main():
     
     # 🔌 ПОДКЛЮЧЕНИЕ ЛОГИКИ (РОУТЕРОВ)
     # Порядок важен: сначала админка, потом меню (кнопки), потом калькулятор
-    dp.include_router(admin.router)
     dp.include_router(menu.router)
     dp.include_router(calculator.router)
     

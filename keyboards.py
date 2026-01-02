@@ -1,23 +1,17 @@
 from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 
+
 def get_main_menu():
     """Главная клавиатура (внизу экрана)"""
     builder = ReplyKeyboardBuilder()
     builder.button(text="💱 Курс валют")
     builder.button(text="🛵 Аренда байков")
     builder.button(text="🚘 Трансфер")
-    builder.button(text="🇻🇳 Визаран")  
+    builder.button(text="🇻🇳 Визаран")
     builder.button(text="📞 Контакты")
-    builder.adjust(2) # 2 кнопки в ряд
+    builder.adjust(2)  # 2 кнопки в ряд
     return builder.as_markup(resize_keyboard=True)
 
-def get_admin_keyboard():
-    """Кнопки в админке"""
-    builder = InlineKeyboardBuilder()
-    builder.button(text="✏️ Изменить курс", callback_data="admin_change_rate")
-    builder.button(text="❌ Закрыть", callback_data="admin_close")
-    builder.adjust(1)
-    return builder.as_markup()
 
 def get_calc_keyboard():
     """Кнопки выбора валюты в калькуляторе"""
@@ -28,6 +22,7 @@ def get_calc_keyboard():
     builder.adjust(1)
     return builder.as_markup()
 
+
 def get_bike_catalog_keyboard():
     """Меню категорий байков"""
     builder = InlineKeyboardBuilder()
@@ -37,9 +32,9 @@ def get_bike_catalog_keyboard():
     builder.adjust(1)
     return builder.as_markup()
 
+
 def get_booking_keyboard(category_code):
     """Кнопка бронирования под услугой"""
     builder = InlineKeyboardBuilder()
-    # callback_data передает тип услуги (book_visarun, book_transfer)
     builder.button(text="✅ Забронировать", callback_data=f"book_{category_code}")
     return builder.as_markup()
