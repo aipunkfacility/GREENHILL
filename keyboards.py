@@ -19,8 +19,11 @@ def get_calc_keyboard():
     builder.button(text="🇷🇺 Рубли (RUB)", callback_data="calc_rub")
     builder.button(text="💎 Крипта (USDT)", callback_data="calc_usdt")
     builder.button(text="💵 Доллары (USD)", callback_data="calc_usd")
+    builder.button(text="🇪🇺 Евро (EUR)", callback_data="calc_eur")
+    builder.button(text="🇨🇳 Юани (CNY)", callback_data="calc_cny")
     builder.adjust(1)
     return builder.as_markup()
+
 
 
 def get_bike_catalog_keyboard():

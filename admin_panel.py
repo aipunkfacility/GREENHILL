@@ -104,21 +104,24 @@ def get_state(request: Request, username: str = Depends(verify_credentials)):
     admins = config.get_admins()
     return {"rate": rates["rub_rate"], "admins": admins}
 
-
 @app.post("/save_rates")
 async def save_rates(
     request: Request,
     rub: str = Form(...),
     usdt: str = Form(...),
     usd: str = Form(...),
+    eur: str = Form(...),
+    cny: str = Form(...),
     username: str = Depends(verify_credentials),
 ):
     rub_int = clean_int(rub)
     usdt_int = clean_int(usdt)
     usd_int = clean_int(usd)
+    eur_int = clean_int(eur)
+    cny_int = clean_int(cny)
 
-    config.update_rates(rub_int, usdt_int, usd_int)
-    audit(request, "save_rates", ok=True, details=f"rub={rub_int} usdt={usdt_int} usd={usd_int}")
+    config.update_rates(rub_int, usdt_int, usd_int, eur_int, cny_int)
+    audit(request, "save_rates", ok=True, details=f"rub={rub_int} usdt={usdt_int} usd={usd_int} eur={eur_int} cny={cny_int}")
 
     return RedirectResponse("/", status_code=303)
 

@@ -59,11 +59,23 @@ def get_rates():
             return json.load(f)
     except:
         # Дефолтные значения, если файла еще нет
-        return {"rub_rate": 3090000, "usdt_rate": 2600000, "usd_rate": 2610000}
+        return {
+            "rub_rate": 3090000,
+            "usdt_rate": 2600000,
+            "usd_rate": 2610000,
+            "eur_rate": 2850000,
+            "cny_rate": 36000
+        }
 
-def update_rates(rub, usdt, usd):
+def update_rates(rub, usdt, usd, eur, cny):
     """Обновляет курсы"""
-    data = {"rub_rate": rub, "usdt_rate": usdt, "usd_rate": usd}
+    data = {
+        "rub_rate": rub,
+        "usdt_rate": usdt,
+        "usd_rate": usd,
+        "eur_rate": eur,
+        "cny_rate": cny
+    }
     with open(RATES_FILE, 'w') as f:
         json.dump(data, f)
 
