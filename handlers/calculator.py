@@ -20,12 +20,16 @@ async def start_calc(message: types.Message, state: FSMContext):
     rub_d = "{:,.0f}".format(rates['rub_rate']).replace(',', '.')
     usdt_d = "{:,.0f}".format(rates['usdt_rate']).replace(',', '.')
     usd_d = "{:,.0f}".format(rates['usd_rate']).replace(',', '.')
+    eur_d = "{:,.0f}".format(rates['eur_rate']).replace(',', '.')
+    cny_d = "{:,.0f}".format(rates['cny_rate']).replace(',', '.')
 
     text = (
         "💱 <b>КУРС ВАЛЮТ НА СЕГОДНЯ:</b>\n\n"
         f"🇷🇺 1 ₽ ➔ {rub_d} ₫\n"
         f"💎 1 USDT ➔ {usdt_d} ₫\n"
-        f"💵 1 USD ➔ {usd_d} ₫\n\n"
+        f"💵 1 USD ➔ {usd_d} ₫\n"
+        f"🇪🇺 1 EUR ➔ {eur_d} ₫\n"
+        f"🇨🇳 1 CNY ➔ {cny_d} ₫\n\n"
         "👇 <b>Что будем менять?</b>"
     )
     await message.answer(text, reply_markup=keyboards.get_calc_keyboard())
@@ -37,7 +41,7 @@ async def ask_amount(callback: types.CallbackQuery, state: FSMContext):
     await state.update_data(selected_currency=currency)
     await state.set_state(Calculator.waiting_for_amount)
     
-    currency_names = {"rub": "RUB", "usdt": "USDT", "usd": "USD"}
+    currency_names = {"rub": "RUB", "usdt": "USDT", "usd": "USD", "eur": "EUR", "cny": "CNY"}
     name = currency_names.get(currency, "валюту")
     
     await callback.message.answer(f"👇 Введите сумму в <b>{name}</b> (только цифры):")
@@ -67,10 +71,25 @@ async def process_calc(message: types.Message, state: FSMContext):
         amount_vnd = amount_input * rate
         input_label = "RUB"
         info = "Принимаем: Сбер, СБП."
-    else:
-        rate = rates['usdt_rate'] if currency == "usdt" else rates['usd_rate']
+    elif currency == "usdt":
+        rate = rates['usdt_rate']
         amount_vnd = amount_input * rate
-        input_label = currency.upper()
+        input_label = "USDT"
+        info = "Выдаем наличные VND."
+    elif currency == "usd":
+        rate = rates['usd_rate']
+        amount_vnd = amount_input * rate
+        input_label = "USD"
+        info = "Выдаем наличные VND."
+    elif currency == "eur":
+        rate = rates['eur_rate']
+        amount_vnd = amount_input * rate
+        input_label = "EUR"
+        info = "Выдаем наличные VND."
+    elif currency == "cny":
+        rate = rates['cny_rate']
+        amount_vnd = amount_input * rate
+        input_label = "CNY"
         info = "Выдаем наличные VND."
 
     vnd_fmt = "{:,.0f}".format(amount_vnd).replace(',', '.')
