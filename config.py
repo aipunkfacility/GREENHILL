@@ -83,23 +83,22 @@ def update_rates(rub, usdt, usd, eur, cny):
 RUB_TO_VND_RATE = get_rates()['rub_rate']
 
 # ==========================================
-# 🖼 ID КАРТИНОК
+# 🖼 ID КАРТИНОК (Добавлено ?v=1 для сброса кэша Telegram)
 # ==========================================
-IMG_TRANSFER = "AgACAgUAAxkBAAMhaU4wuZ9v00Fk_71LT7uduVslkTsAApsMaxtZnHFWgzKP0SwN0FMBAAMCAAN5AAM2BA" 
-IMG_VISARUN = "AgACAgUAAxkBAAMdaU4wJMquUcGptpBLFu-0cwOnJGEAAjMLaxsJvnhWKZw9_Hrj8ZsBAAMCAAN5AAM2BA"
-IMG_EXCHANGE = "AgACAgUAAxkBAAMfaU4wmg08Sn9JNsOruCo12gagqpMAApkMaxtZnHFWaH7y-LpdOlUBAAMCAAN5AAM2BA"
+IMG_VISION = "https://greenhill-admin.duckdns.org/images/vision.jpg?v=1"
+IMG_LEAD = "https://greenhill-admin.duckdns.org/images/lead.jpg?v=1"
+IMG_AIRBLADE = "https://greenhill-admin.duckdns.org/images/airblade.jpg?v=1"
 
-# БАЙКИ
-IMG_VISION = "AgACAgUAAxkBAAMjaU4zQAI_RONt7SmM0xsZ_7G1NgsAAq4MaxtZnHFWBqvuknrjpNMBAAMCAAN5AAM2BA"
-IMG_LEAD = "AgACAgUAAxkBAAIBJ2lP8Jy810VhTGU_rpq16yxpDkizAAL9C2sbIpqBVlGAmhJqYCpyAQADAgADeQADNgQ"
-IMG_AIRBLADE = "AgACAgUAAxkBAAIBLWlP8Tfw3cW14qMxSOEaBWLoz7awAAL1C2sbIpqBVvrnb1Ui7SLeAQADAgADeQADNgQ"
+IMG_PCX160 = "https://greenhill-admin.duckdns.org/images/pcx160.jpg?v=1"
+IMG_PCX150 = "https://greenhill-admin.duckdns.org/images/pcx150.jpg?v=1"
+IMG_NVX_B = "https://greenhill-admin.duckdns.org/images/nvx_b.jpg?v=1"
+IMG_NVX_R = "https://greenhill-admin.duckdns.org/images/nvx_r.jpg?v=1"
 
-IMG_PCX160 = "AgACAgUAAxkBAAMlaU4zZTWPoxfJI0ZUbXSk37OGabcAAq8MaxtZnHFWrxG5dHZi4dYBAAMCAAN5AAM2BA"
-IMG_PCX150 = "AgACAgUAAxkBAAIBL2lP8WadqhaZz2vy9NkJ-vp8jI-jAALzC2sbIpqBVn0onMD69u9YAQADAgADeQADNgQ"
-IMG_NVX_B = "AgACAgUAAxkBAAIBK2lP8Q5WGTop7iQYtYyf7VwwdUI_AAL2C2sbIpqBVgtMf-giYqlPAQADAgADeQADNgQ"
-IMG_NVX_R = "AgACAgUAAxkBAAIBKWlP8O5L2fiHAcxPmg2_IoAbajCHAAL3C2sbIpqBVieDp-AKN6iQAQADAgADeQADNgQ"
+IMG_SUZUKI = "https://greenhill-admin.duckdns.org/images/suzuki.jpg?v=1"
 
-IMG_SUZUKI = "AgACAgUAAxkBAAMnaU4ziKc2nKtMyHddDI--KMopz88AArIMaxtZnHFWgphlM3ogQkYBAAMCAAN5AAM2BA"
+IMG_TRANSFER = "https://greenhill-admin.duckdns.org/images/transfer.jpg?v=1"
+IMG_VISARUN = "https://greenhill-admin.duckdns.org/images/visarun.jpg?v=1"
+IMG_EXCHANGE = "https://greenhill-admin.duckdns.org/images/exchange.jpg?v=1"
 
 # ==========================================
 # 📝 ТЕКСТЫ СООБЩЕНИЙ

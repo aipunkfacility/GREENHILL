@@ -1,0 +1,38 @@
+services:
+  bot:
+    build: .
+    command: python main.py
+    env_file: .env
+    volumes:
+      - ./data:/data
+      - ./images:/opt/GREENHILL/images
+    restart: always
+
+  admin:
+    build: .
+    command: python admin_panel.py
+    env_file: .env
+    environment:
+      - PORT=8000
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/data
+    restart: always
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - admin
+    restart: always
+
+volumes:
+  caddy_data:
+  caddy_config:

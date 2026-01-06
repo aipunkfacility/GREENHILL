@@ -1,0 +1,11 @@
+greenhill-admin.duckdns.org {
+    # Картинки (путь сохраняется полностью!)
+    handle /images/* {
+        reverse_proxy bot:8001
+    }
+
+    # Все остальное - в админку
+    handle {
+        reverse_proxy admin:8000
+    }
+}
